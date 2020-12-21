@@ -1,5 +1,5 @@
 import die_roll 
-from roles import spiderman
+from roles import spiderman, iroman
 
 class Game():
 
@@ -55,7 +55,7 @@ class Game():
 			try:
 				character = int(character)
 			except:
-				print('\nInvalid choice, please try again. choice a number between [1-6]')
+				print('\nInvalid choice, please try again. choice a number between [1-2]')
 				character = None
 				continue
 
@@ -82,6 +82,7 @@ class Game():
 				'\n',
 				sep='\n'
 			)
+			role = iroman.Iroman(1,-2,2)
 
 		count = 0
 		special = 0
@@ -156,7 +157,73 @@ class Game():
 
 			print(spiderman.WinLossStatements(count,special))#spiderman win and loss statements 
 		
+		elif character == 2:#determines which character in order to chooses roll bonuses
 
+		    print("Two leviathans are going to attack you and you must execute a quick plan (INT) to avoid being crushed.\n***In order to be successful in this challenge you need to roll higher than an 6***")
+
+		    roll = die_roll.DiceRoll(input("Enter 'roll': "))
+		    print("you rolled " + str(roll))
+		    INT = role[1]
+		    bonus = roll + INT
+		    print("you rolled " + str(bonus) + " with stat bonuses")#prints the users roll with stat boost
+
+		    roll_state = die_roll.RollStatements(bonus)#sends the roll sum with boost to roll statements
+
+		    stat_int = iroman.Intelligence(bonus, INT)
+
+		    print(roll_state + "\nyou now have " + str(stat_int) + " INT")
+
+		    #loss counter
+		    if (bonus <= 5):
+		        count += 1
+		    #special ending
+		    if(bonus >= 12):
+		        special +=1
+		    #obstacle 2 => main module
+		    print("You killed the leviathans. Now you must help Captain Marvel to destroy the Chitauri invasion from above(STR)\n***In order to be successful in this challenge you need to roll higher than an 6***")
+
+		    roll = die_roll.DiceRoll(input("Enter 'roll': "))
+		    print("you rolled " + str(roll))
+		    STR = role[2]
+		    bonus = roll + STR
+		    print("you rolled " + str(bonus) + " with stat bonuses")#prints the users roll with stat boost
+
+		    roll_state = die_roll.RollStatements(bonus)#sends the roll sum with boost to roll statements
+
+		    stat_str = iroman.Strength(bonus, STR)
+
+		    print(roll_state + "\nyou now have " + str(stat_str) + " STR")
+		    #loss counter
+		    if (bonus <= 5):
+		        count += 1  
+		    if (count == 2):
+		        print(iroman.WinLossStatements(count,special))
+		        exit()
+
+		    #obstacle 3 => main module
+		    print("Confront Thanos and snatch the gauntlet from his hands to then make the final snap (AGL).\n***In order to be successful in this challenge you need to roll higher than an 8***")
+
+		    roll = die_roll.DiceRoll(input("Enter 'roll': "))
+		    print("you rolled " + str(roll))
+		    AGL = role[1]
+		    bonus = roll + AGL
+		    print("you rolled " + str(bonus) + " with stat bonuses")#prints the users roll with stat boost
+
+		    roll_state = die_roll.RollStatements(bonus)#sends the roll sum with boost to roll statements
+
+		    stat_agl = iroman.Agility(bonus, AGL)
+
+		    print(roll_state + "\nyou now have " + str(stat_agl) + " AGL")
+		    
+		    #loss counter
+		    if (bonus <= 5):
+		        count += 2
+		    #special ending
+		    if(bonus >= 12):
+		        special +=1
+		    #win game => Txakurra
+		    #game over => Txakurra
+		    print(iroman.WinLossStatements(count,special))#Txacurra win and loss statements 
 
 	def start(self):
 		self._overview()
